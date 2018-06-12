@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  # PostsController showing a post shows a post
+  # PostsController making invalid updates has an error for too short content
+  # PostsController making invalid updates controller actions renders the form again
   before_action :set_post!, only: [:show, :edit, :update]
 
   def show
@@ -8,9 +11,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.update(post_params)
-
-    redirect_to post_path(@post)
+    if @post.update(post_params)
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
   end
 
   private
