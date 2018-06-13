@@ -7,9 +7,15 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    @author = Author.create!(author_params)
+    # it wants me to check the instance by creating a new
+    @author = Author.new(author_params)
 
-    redirect_to author_path(@author)
+    # then save it
+    if @author.save
+      redirect_to author_path(@author)
+    else
+      render :new
+    end
   end
 
   private
