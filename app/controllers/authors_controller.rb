@@ -7,11 +7,11 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    # it wants me to check the instance by creating a new
+    # it wants me to check by creating a new instance
     @author = Author.new(author_params)
-
     # then save it
-    if @author.save
+    if @author.valid?
+      @author.save
       redirect_to author_path(@author)
     else
       render :new
