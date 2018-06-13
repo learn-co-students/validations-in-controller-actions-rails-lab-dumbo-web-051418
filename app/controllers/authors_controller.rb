@@ -4,13 +4,22 @@ class AuthorsController < ApplicationController
   end
 
   def new
+    @author = Author.new
   end
 
   def create
-    @author = Author.create!(author_params)
+    @author = Author.new(author_params)
 
-    redirect_to author_path(@author)
+    if @author.save
+
+      redirect_to author_path(@author)
+
+    # Change AuthorsController#create to re-render
+    #  the form if the new author is invalid.
+    else
+      render :new
   end
+end
 
   private
 
